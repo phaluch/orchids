@@ -11,7 +11,7 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  for (int i = 0; i < 20; i++) {
+  for (int i = 0; i < 5; i++) {
     int sensorValue = analogRead(i); // Read analog value from pin i
     
     // Print the value to the serial monitor
@@ -19,6 +19,6 @@ void loop() {
     Serial.print(":");
     Serial.println(sensorValue);
     
-    delay(100); // Wait for a short time before reading the next pin
+    delay(750); // Wait for a short time before reading the next pin
   }
 }
