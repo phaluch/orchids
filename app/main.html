@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Line Chart Example</title>
+  <style>
+    /* Set the chart container to fill the width of the screen */
+    #chart-container {
+      width: 100%;
+      max-width: 500px; /* optional, adjust as needed */
+      margin: 0 auto;
+    }
+    
+    /* Style the chart canvas */
+    canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="chart-container">
+    <canvas id="line-chart"></canvas>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Define the chart data
+    var chartData = {
+      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      datasets: [
+        {
+          label: "Series 1",
+          data: [12, 19, 3, 5, 2, 3, 8],
+          borderColor: "red",
+          fill: false
+        },
+        {
+          label: "Series 2",
+          data: [5, 10, 6, 8, 3, 7, 6],
+          borderColor: "blue",
+          fill: false
+        },
+        {
+          label: "Series 3",
+          data: [2, 5, 2, 4, 1, 3, 4],
+          borderColor: "green",
+          fill: false
+        }
+      ]
+    };
+    
+    // Get the chart canvas and create a new line chart
+    var chartCanvas = document.getElementById("line-chart").getContext("2d");
+    var lineChart = new Chart(chartCanvas, {
+      type: "line",
+      data: chartData,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          xAxes: [{
+            display: true,
+            scaleLabel: {
+              display: true,
+              labelString: 'Month'
+            }
+          }],
+          yAxes: [{
+            display: true,
+            scaleLabel: {
+              display: true,
+              labelString: 'Value'
+            }
+          }]
+        }
+      }
+    });
+  </script>
+</body>
+</html>

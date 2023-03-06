@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Line Chart Example with Google Charts</title>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    // Load the Google Charts library and set the callback function
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    
+    function drawChart() {
+      // Define the chart data
+      var chartData = google.visualization.arrayToDataTable([
+        ['Month', 'Series 1', 'Series 2', 'Series 3'],
+        ['January', 12, 5, 2],
+        ['February', 19, 10, 5],
+        ['March', 3, 6, 2],
+        ['April', 5, 8, 4],
+        ['May', 2, 3, 1],
+        ['June', 3, 7, 3],
+        ['July', 8, 6, 4]
+      ]);
+      
+      // Set the chart options
+      var options = {
+        title: 'Line Chart Example',
+        legend: { position: 'bottom' },
+        colors: ['red', 'blue', 'green'],
+        chartArea: {
+          width: '80%',
+          height: '70%'
+        },
+        hAxis: {
+          title: 'Month',
+          titleTextStyle: {
+            fontSize: 14,
+            bold: true
+          }
+        },
+        vAxis: {
+          title: 'Value',
+          titleTextStyle: {
+            fontSize: 14,
+            bold: true
+          }
+        }
+      };
+      
+      // Create the chart object and pass the chart data and options
+      var chart = new google.visualization.LineChart(document.getElementById('line-chart'));
+      chart.draw(chartData, options);
+    }
+  </script>
+  <style>
+    /* Set the chart container to fill the width of the screen */
+    #chart-container {
+      width: 100%;
+      max-width: 500px; /* optional, adjust as needed */
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="chart-container">
+    <div id="line-chart"></div>
+  </div>
+</body>
+</html>
