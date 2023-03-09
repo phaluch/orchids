@@ -2,7 +2,8 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Line Chart Example</title>
+  <title>Line Chart Example with Charts.js</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     /* Set the chart container to fill the width of the screen */
     #chart-container {
@@ -10,72 +11,88 @@
       max-width: 500px; /* optional, adjust as needed */
       margin: 0 auto;
     }
-    
-    /* Style the chart canvas */
-    canvas {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
   </style>
 </head>
 <body>
   <div id="chart-container">
     <canvas id="line-chart"></canvas>
   </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <div id="slider-container">
+    <input type="range" id="slider" min="0" max="6" step="1" value="6" />
+  </div>
   <script>
     // Define the chart data
     var chartData = {
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      labels: [$LABELS$],
       datasets: [
         {
-          label: "Series 1",
+          label: 'Series 1',
           data: [12, 19, 3, 5, 2, 3, 8],
-          borderColor: "red",
+          borderColor: 'red',
           fill: false
         },
         {
-          label: "Series 2",
+          label: 'Series 2',
           data: [5, 10, 6, 8, 3, 7, 6],
-          borderColor: "blue",
+          borderColor: 'blue',
           fill: false
         },
         {
-          label: "Series 3",
+          label: 'Series 3',
           data: [2, 5, 2, 4, 1, 3, 4],
-          borderColor: "green",
+          borderColor: 'green',
           fill: false
         }
       ]
     };
-    
-    // Get the chart canvas and create a new line chart
-    var chartCanvas = document.getElementById("line-chart").getContext("2d");
-    var lineChart = new Chart(chartCanvas, {
-      type: "line",
+
+    // Define the chart options
+    var options = {
+      title: {
+        display: true,
+        text: 'Line Chart Example'
+      },
+      scales: {
+        xAxes: [{
+          type: 'time',
+          time: {
+            unit: 'month',
+            displayFormats: {
+              month: 'MMM YYYY'
+            }
+          },
+          scaleLabel: {
+            display: true,
+            labelString: 'Month'
+          }
+        }],
+        yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Value'
+          }
+        }]
+      },
+      legend: {
+        display: true,
+        position: 'bottom'
+      },
+      responsive: true,
+      maintainAspectRatio: false
+    };
+
+    // Create the chart object and pass the chart data and options
+    var chart = new Chart(document.getElementById('line-chart').getContext('2d'), {
+      type: 'line',
       data: chartData,
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          xAxes: [{
-            display: true,
-            scaleLabel: {
-              display: true,
-              labelString: 'Month'
-            }
-          }],
-          yAxes: [{
-            display: true,
-            scaleLabel: {
-              display: true,
-              labelString: 'Value'
-            }
-          }]
-        }
-      }
+      options: options
+    });
+
+    // Add an event listener to the slider
+    document.getElementById('slider').addEventListener('input', function() {
+      var value = this.value;
+      chart.options.scales.xAxes[0].time.unit = value == 6 ? 'month' : 'year';
+      chart.update();
     });
   </script>
 </body>
