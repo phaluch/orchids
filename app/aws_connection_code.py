@@ -7,6 +7,16 @@ keys = ['aws_access_key_id', 'aws_secret_access_key']
 with open('creds.txt') as f:
     creds = {key:value.replace('\n','') for key, value in zip(keys,f.readlines())}
 
+conn = connect(s3_staging_dir='s3://database-do-athena/resultados/',
+               region_name='us-east-1',
+               aws_access_key_id=creds['aws_access_key_id'],
+                aws_secret_access_key=creds['aws_secret_access_key'])
+
+df = pd.read_sql_query('select * from erau.usoap limit 5',conn)
+print(df)
+
+
+
 session = boto3.Session(
     aws_access_key_id=creds['aws_access_key_id'],
     aws_secret_access_key=creds['aws_secret_access_key'],
@@ -35,7 +45,3 @@ wr.s3.to_parquet(
 
 )
 
-conn = connect(s3_staging_dir='s3://database-do-athena/resultados/',
-               region_name='us-east-1',
-               aws_access_key_id=creds['aws_access_key_id'],
-                aws_secret_access_key=creds['aws_secret_access_key'])
