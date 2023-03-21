@@ -37,5 +37,5 @@ wr.s3.to_parquet(
 
 conn = connect(s3_staging_dir='s3://database-do-athena/resultados/',
                region_name='us-east-1',
-               aws_access_key_id='AKIAZZ7H35HKUHSMEZOC',
-               aws_secret_access_key='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')
+               aws_access_key_id=creds['aws_access_key_id'],
+                aws_secret_access_key=creds['aws_secret_access_key'])
